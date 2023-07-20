@@ -928,6 +928,7 @@ class ApplicationBuilder:
             build_in_source=self._build_in_source,
             mount_with_write=self._mount_with_write,
             build_dir=self._build_dir,
+            platform="linux/amd64",
         )
 
         try:

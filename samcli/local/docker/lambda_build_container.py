@@ -48,6 +48,7 @@ class LambdaBuildContainer(Container):
         build_in_source=None,
         mount_with_write: bool = False,
         build_dir=None,
+        platform=None,
     ):
         abs_manifest_path = pathlib.Path(manifest_path).resolve()
         manifest_file_name = abs_manifest_path.name
@@ -121,6 +122,7 @@ class LambdaBuildContainer(Container):
             env_vars=env_vars,
             mount_with_write=mount_with_write,
             host_tmp_dir=host_tmp_dir,
+            platform=platform,
         )
 
     @property

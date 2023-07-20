@@ -75,6 +75,7 @@ class Container:
         container_host_interface="127.0.0.1",
         mount_with_write: bool = False,
         host_tmp_dir: Optional[str] = None,
+        platform=None,
     ):
         """
         Initializes the class with given configuration. This does not automatically create or run the container.
@@ -126,6 +127,7 @@ class Container:
         self._container_host_interface = container_host_interface
         self._mount_with_write = mount_with_write
         self._host_tmp_dir = host_tmp_dir
+        self._platform = platform
 
         try:
             self.rapid_port_host = find_free_port(start=self._start_port_range, end=self._end_port_range)
@@ -206,6 +208,9 @@ class Container:
         if self._memory_limit_mb:
             # Ex: 128m => 128MB
             kwargs["mem_limit"] = "{}m".format(self._memory_limit_mb)
+
+        if self._platform:
+            kwargs["platform"] = self._platform
 
         real_container = self.docker_client.containers.create(self._image, **kwargs)
         self.id = real_container.id
